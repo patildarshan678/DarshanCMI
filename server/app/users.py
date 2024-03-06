@@ -1,7 +1,8 @@
 from app import flask_app
-from flask import Blueprint,request
-from werkzeug.security import generate_password_hash
+from flask import Blueprint,request,jsonify
 from Models.userModel import User
+from werkzeug.security import check_password_hash
+from flask_login import login_user,logout_user
 from database import db
 user_bp  = Blueprint(
     'user', __name__, url_prefix='/api/user')
@@ -14,8 +15,10 @@ def add_user():
             Email = req_body.get('Email')
             UserName = req_body.get('username')
             password = req_body.get('password')
-            hashed_password = generate_password_hash(password=password, method='sha256')
-            user = User(Email=Email,UserName=UserName,Password=hashed_password)
+            user = User()
+            user.Email = Email
+            user.set_password(password=password)
+            user.UserName = UserName
             db.session.add(user)
             db.session.commit()
             return user.serialize()
@@ -28,6 +31,21 @@ def add_user():
 @user_bp.route('/login',methods=['POST'])
 def login():
     try:
-        pass
+        data = request.get_json()
+        username = data.get('username')
+        password = data.get('password')
+        db_user = User.query.filter_by(UserName=username).first()
+        if db_user and check_password_hash(db_user.Password, password):
+            login_user(db_user)
+            return jsonify({'message': 'Login successful'}), 200
+        else:
+            return jsonify({'message': 'Invalid username or password'}), 400
+
     except BaseException as err:
-        pass
+        msg = f"Exception occured in login API. {err}"
+        print(msg)
+        return msg , 500
+@user_bp.route('/logout')
+def logout():
+    logout_user()
+    return jsonify({'message': 'Logged out successfully'}), 200
