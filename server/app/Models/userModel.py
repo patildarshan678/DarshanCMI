@@ -9,4 +9,9 @@ class User(db.Model,UserMixin):
         self.UserName = UserName
         self.Email = Email
         self.Password = Password
+    def serialize(self):
+        return{
+            "UserName": self.UserName,
+            "Email": self.Email
+        }
     

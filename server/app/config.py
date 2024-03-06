@@ -1,8 +1,9 @@
 from datetime import timedelta
 class Constants(object):
     Debug = False
+    #SQLALCHEMY_DATABASE_URI = 'sqlite:///FlaskDatabase.db'
+    SQLALCHEMY_DATABASE_URI = 'postgresql://postgres:abc123@127.0.0.1:5432/CMITest'
     SQLALCHEMY_TRACK_MODIFICATIONS = False
-    SQLALCHEMY_DATABASE_URI = 'sqlite:///FlaskDatabase.db'
     JWT_SECRET_KEY = 'SECT_KEY'
     JWT_ACCESS_TOKEN_EXPIRES = timedelta(45)
     

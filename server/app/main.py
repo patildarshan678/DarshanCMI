@@ -1,6 +1,8 @@
 from app import flask_app
 def register_bp():
      from hello import hello_bp
+     from users import user_bp
+     flask_app.register_blueprint(user_bp)
      flask_app.register_blueprint(hello_bp)
 register_bp()
 if __name__ == '__main__':
