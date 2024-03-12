@@ -8,13 +8,17 @@ files_bp = Blueprint(
 @files_bp.route('saveCsvToDb')
 def saveCsvToDb():
     try:
-        fileservice = FilesServices()
-        smallCSV = r'C:/Users/patil/Downloads/SampleCSVFile_2kb.csv'
-        largeCSV =  r'C:\Users\patil\Downloads\free-7-million-company-dataset\companies_sorted.csv'
-       # fileservice.saveToDb(smallCSV)
-        fileservice.insert_data_from_csv(largeCSV)
-        
-        return "Sucessfully saved CSV to DB"
+        if current_user.is_authenticated:
+            fileservice = FilesServices()
+            smallCSV = r'C:/Users/patil/Downloads/SampleCSVFile_2kb.csv'
+            largeCSV =  r'C:\Users\patil\Downloads\free-7-million-company-dataset\companies_sorted.csv'
+        # fileservice.saveToDb(smallCSV)
+            fileservice.insert_data_from_csv(largeCSV)
+            
+            return "Sucessfully saved CSV to DB"
+        else:
+            msg = f"You are not authorized to use the endpoint"
+            return jsonify({'message':msg}),200
     except BaseException as err:
         msg  = f"Failed to save csv to db .{err}"
         print(msg)
