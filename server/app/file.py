@@ -18,7 +18,7 @@ def saveCsvToDb():
             return "Sucessfully saved CSV to DB"
         else:
             msg = f"You are not authorized to use the endpoint"
-            return jsonify({'message':msg}),200
+            return jsonify({'message':msg,'error':"UNAUTHORIZED"}),200
     except BaseException as err:
         msg  = f"Failed to save csv to db .{err}"
         print(msg)

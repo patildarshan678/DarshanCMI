@@ -10,7 +10,7 @@ def message():
         if current_user.is_authenticated:
             return jsonify({'message': f'Hello {current_user.UserName}'}), 200
         else:
-            return jsonify({'message': 'User are not authorzied to use this endpoint'}), 200
+            return jsonify({'message': 'User are not authorzied to use this endpoint','error':"UNAUTHORIZED"}), 200
           
     except BaseException as err:
         msg = f"Exception occured in message API.{err}"
