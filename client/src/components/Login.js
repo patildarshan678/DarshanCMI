@@ -1,6 +1,7 @@
+
 import './Login.css'
 import React from 'react'
-import Form from 'react-bootstrap/Form';
+import {Form,Button} from 'react-bootstrap';
 function Login() {
     return (
         <div className='Login_container'>
@@ -14,6 +15,8 @@ function Login() {
                     <Form.Label>Password</Form.Label>
                     <Form.Control type="password" placeholder="Password" />
                 </Form.Group>
+                
+            <Button>Login</Button>
             </Form>
         </div>
     )
