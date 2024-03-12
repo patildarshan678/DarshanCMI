@@ -1,0 +1,21 @@
+.signup_container
+{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh; 
+    width: 100vw;
+}
+.signup_container .Form
+{
+    border-style: groove ;
+    padding: 1rem;
+    width: 50rem;
+    max-height: 100rem;
+    border-style: groove;
+    border:  2 px;
+}
+.signup_container .summit_btn
+{
+    margin-bottom: 1rem;
+}
