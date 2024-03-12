@@ -1,6 +1,7 @@
 from flask import Flask
 from database import db
 from Models.userModel import User
+from Models.csvModels import CSVData
 from flask_login import LoginManager, UserMixin, login_user, logout_user, login_required
 
 flask_app = Flask(__name__)
