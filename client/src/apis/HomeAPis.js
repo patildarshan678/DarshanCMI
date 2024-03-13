@@ -3,7 +3,15 @@ import links from "./urls";
 async function Hello()
 {
     let url = links.hello
-    return await axios.get(url)
+    let headers = {
+        'Access-Control-Allow-Origin': 'http://localhost:3000'
+    }
+    return await axios(
+        {method:'GET',
+        url : url,
+        headers : headers
+    }
+    )
     .then((response => {
         console.log(response);
         return response;

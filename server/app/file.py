@@ -1,4 +1,5 @@
 from flask import Blueprint,jsonify
+from Models.csvModels import CSVData
 from app import flask_app
 from flask_login import current_user
 from FilesServices.FilesServices import FilesServices
@@ -21,5 +22,16 @@ def saveCsvToDb():
             return jsonify({'message':msg,'error':"UNAUTHORIZED"}),200
     except BaseException as err:
         msg  = f"Failed to save csv to db .{err}"
+        print(msg)
+        return msg
+    
+@files_bp.route('getcsvrecords')
+def getcsvrecords():
+    try:
+        dbrecors = CSVData.query.all()
+        dblist = [record.serialize() for record in dbrecors]
+        return jsonify(dblist)
+    except BaseException as err:
+        msg  = f"Exception occured in getcsvrecords. {err}"
         print(msg)
         return msg
