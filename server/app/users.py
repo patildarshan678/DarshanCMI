@@ -2,7 +2,7 @@ from app import flask_app
 from flask import Blueprint,request,jsonify
 from Models.userModel import User
 from werkzeug.security import check_password_hash
-from flask_login import login_user,logout_user
+from flask_login import login_user,logout_user,current_user
 from database import db
 user_bp  = Blueprint(
     'user', __name__, url_prefix='/api/user')
@@ -36,10 +36,11 @@ def login():
         password = data.get('password')
         db_user = User.query.filter_by(UserName=username).first()
         if db_user and check_password_hash(db_user.Password, password):
-            login_user(db_user)
+            if current_user.is_authenticated== False:
+                login_user(db_user)
             return jsonify({'message': 'Login successful'}), 200
         else:
-            return jsonify({'message': 'Invalid username or password'}), 400
+            return jsonify({'message': 'Invalid username or password','error':'UnAthorized'}), 200
 
     except BaseException as err:
         msg = f"Exception occured in login API. {err}"

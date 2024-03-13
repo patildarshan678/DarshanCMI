@@ -8,7 +8,7 @@ from flask_login import LoginManager, UserMixin, login_user, logout_user, login_
 flask_app = Flask(__name__)
 environment_configuration = 'config.Developement'
 flask_app.config.from_object(environment_configuration)
-CORS(flask_app)
+CORS(flask_app,origins=['http://localhost:3000'])
 db.init_app(flask_app)
 login_manager = LoginManager()
 login_manager.init_app(flask_app)
